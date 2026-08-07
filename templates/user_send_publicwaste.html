@@ -1,0 +1,192 @@
+{% include 'user_header.html' %}
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Public Waste | Haritha Karma Sena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        eco: {
+                            50: '#f2fcf5',
+                            100: '#e2f7e9',
+                            200: '#c5eed4',
+                            600: '#10b981',
+                            700: '#059669',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        accent: {
+                            gold: '#f59e0b',
+                            lime: '#84cc16'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen py-10">
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl space-y-10">
+        
+        <div class="border-b border-slate-200/60 pb-4">
+            <h1 class="text-3xl font-black text-slate-900 tracking-tight">Report Public Waste</h1>
+            <div class="h-1 w-12 bg-gradient-to-r from-eco-600 to-accent-lime rounded-full mt-2"></div>
+        </div>
+
+        {% if messages %}
+            <div class="space-y-3">
+                {% for message in messages %}
+                    <div class="flex items-center p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 shadow-sm text-sm font-medium">
+                        <i class="fas fa-circle-check text-emerald-500 mr-3 text-base"></i>
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="grid lg:grid-cols-12 gap-8 items-start">
+            
+            <div class="lg:col-span-5 bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-xl shadow-slate-100/70 space-y-6 relative overflow-hidden">
+                <div class="absolute right-0 top-0 translate-x-4 -translate-y-4 opacity-5 text-7xl text-eco-600 pointer-events-none">
+                    <i class="fas fa-camera"></i>
+                </div>
+                
+                <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
+                    <div class="w-8 h-8 bg-eco-50 rounded-lg flex items-center justify-center text-eco-600 text-sm shadow-sm">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Report New Waste</h2>
+                </div>
+
+                <form method="POST" enctype="multipart/form-data" class="space-y-5">
+                    {% csrf_token %}
+                    
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase text-slate-400 tracking-wide">Title</label>
+                        <input type="text" name="title"
+                               class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-slate-800 focus:outline-none focus:border-eco-500 text-sm transition-colors placeholder-slate-400 font-medium"
+                               placeholder="Enter waste title" required>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase text-slate-400 tracking-wide">Photo</label>
+                        <div class="flex items-center justify-center w-full">
+                            <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-200 border-dashed rounded-xl cursor-pointer bg-slate-50 hover:bg-slate-100/70 transition-colors">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <i class="fas fa-cloud-arrow-up text-slate-400 text-xl mb-2"></i>
+                                    <p class="text-xs text-slate-500"><span class="font-semibold text-eco-600">Select image file</span></p>
+                                </div>
+                                <input type="file" name="photo" class="hidden" required onchange="this.previousElementSibling.querySelector('span').innerText = this.files[0].name">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="pt-1">
+                        <button type="button" onclick="getLocation()" class="w-full bg-white hover:bg-slate-50 text-slate-700 font-semibold border border-slate-200 p-3 rounded-xl shadow-sm text-xs transition duration-200 flex items-center justify-center gap-2">
+                            <i class="fas fa-location-dot text-eco-600"></i> Get My Location
+                        </button>
+                    </div>
+
+                    <div class="pt-2">
+                        <button type="submit" class="w-full bg-gradient-to-r from-eco-600 to-eco-700 hover:from-eco-700 hover:to-eco-800 text-white font-bold p-3.5 rounded-xl transition duration-300 uppercase tracking-widest text-xs shadow-lg shadow-eco-700/20 hover:scale-[1.01]">
+                            Submit Report
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="lg:col-span-7 space-y-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center text-slate-600 text-sm shadow-sm">
+                        <i class="fas fa-clock-rotate-left"></i>
+                    </div>
+                    <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">My Reports</h2>
+                </div>
+
+                <div class="bg-white rounded-3xl border border-slate-100 shadow-xl shadow-slate-100/70 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse min-w-[550px]">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-slate-100 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                                    <th class="py-4 px-6 w-16">Sl No</th>
+                                    <th class="py-4 px-6">Title</th>
+                                    <th class="py-4 px-6 w-24">Image</th>
+                                    <th class="py-4 px-6 w-32">Status</th>
+                                    <th class="py-4 px-6 w-36">Reward</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 text-sm text-slate-600 font-medium">
+                                {% for w in view %}
+                                <tr class="hover:bg-slate-50/50 transition-colors duration-200">
+                                    <td class="py-4 px-6 text-slate-400 text-xs">{{ forloop.counter }}</td>
+                                    
+                                    <td class="py-4 px-6 text-slate-900 font-semibold">
+                                        {{ w.title }}
+                                    </td>
+                                    
+                                    <td class="py-4 px-6">
+                                        <div class="w-16 h-16 rounded-xl bg-slate-50 border border-slate-100 overflow-hidden flex items-center justify-center p-1 shadow-sm">
+                                            <img src="/static/image/{{w.image}}" class="w-full h-full object-cover rounded-lg">
+                                        </div>
+                                    </td>
+                                    
+                                    <td class="py-4 px-6">
+                                        {% if w.status == 'pending' %}
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mr-1.5 animate-pulse"></span>
+                                                Pending
+                                            </span>
+                                        {% elif w.status == 'verified' %}
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-sky-50 text-sky-700 border border-sky-200">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-sky-500 mr-1.5"></span>
+                                                Verified
+                                            </span>
+                                        {% elif w.status == 'cleaned' %}
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>
+                                                Cleaned ✓
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    
+                                    <td class="py-4 px-6 text-xs font-semibold">
+                                        </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="5" class="py-12 px-6 text-center text-slate-400 font-medium italic">
+                                        <div class="flex flex-col items-center justify-center space-y-2">
+                                            <i class="fas fa-folder-open text-3xl text-slate-300"></i>
+                                            <span>No reports submitted yet.</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    </body>
+</html>
+
+{% include 'public_footer.html' %}

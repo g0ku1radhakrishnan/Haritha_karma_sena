@@ -1,0 +1,98 @@
+{% include 'itofficer_header.html' %}
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reply to Complaint | Haritha Karma Sena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        eco: {
+                            50: '#f2fcf5',
+                            100: '#e2f7e9',
+                            200: '#c5eed4',
+                            600: '#10b981',
+                            700: '#059669',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        accent: {
+                            gold: '#f59e0b',
+                            lime: '#84cc16'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen py-10">
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl space-y-8">
+        
+        <div class="border-b border-slate-200/60 pb-4">
+            <h1 class="text-3xl font-black text-slate-900 tracking-tight">Reply to Complaint</h1>
+            <div class="h-1 w-12 bg-gradient-to-r from-eco-600 to-accent-lime rounded-full mt-2"></div>
+        </div>
+
+        {% if messages %}
+            <div class="space-y-3">
+                {% for message in messages %}
+                    <div class="flex items-center p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 shadow-sm text-sm font-medium">
+                        <i class="fas fa-circle-check text-emerald-500 mr-3 text-base"></i>
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-xl shadow-slate-100/70 space-y-6 relative overflow-hidden">
+            <div class="absolute right-0 top-0 translate-x-4 -translate-y-4 opacity-5 text-8xl text-eco-600 pointer-events-none">
+                <i class="fas fa-reply-all"></i>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-100 p-5 rounded-2xl space-y-2">
+                <span class="inline-flex items-center text-[10px] font-bold uppercase tracking-wider text-red-600 bg-red-50 border border-red-100 px-2.5 py-0.5 rounded-md">
+                    Filed Complaint Description
+                </span>
+                <p class="text-slate-700 text-sm font-medium leading-relaxed pt-1">
+                    {{ complaint.description }}
+                </p>
+            </div>
+
+            <form method="post" class="space-y-5">
+                {% csrf_token %}
+
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold uppercase text-slate-400 tracking-wide">Reply Message</label>
+                    <textarea name="reply" rows="5" 
+                              class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-slate-800 focus:outline-none focus:border-eco-500 text-sm transition-colors font-medium placeholder-slate-400" 
+                              placeholder="Type your official resolution or response here..." 
+                              required></textarea>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-gradient-to-r from-eco-600 to-eco-700 hover:from-eco-700 hover:to-eco-800 text-white font-bold p-3.5 rounded-xl transition duration-300 uppercase tracking-widest text-xs shadow-lg shadow-eco-700/20 hover:scale-[1.01]">
+                        Send Reply
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+{% include 'public_footer.html' %}
+</body>
+</html>

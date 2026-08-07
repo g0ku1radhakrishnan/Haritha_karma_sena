@@ -1,0 +1,164 @@
+{% include 'hks_normal_header.html' %}
+
+<style>
+    /* Modern styling theme matched to previous UI */
+    .page-container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #333;
+    }
+
+    .page-title {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 24px;
+        text-transform: capitalize;
+        border-bottom: 2px solid #ecf0f1;
+        padding-bottom: 10px;
+    }
+
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+        background-color: #ffffff;
+        border: 1px solid #eef2f5;
+    }
+
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    .custom-table th {
+        background-color: #f8f9fa;
+        color: #495057;
+        font-weight: 600;
+        padding: 16px;
+        font-size: 0.95rem;
+        border-bottom: 2px solid #dee2e6;
+        white-space: nowrap;
+    }
+
+    .custom-table td {
+        padding: 16px;
+        vertical-align: middle;
+        border-bottom: 1px solid #ebebeb;
+        color: #4f5d75;
+        font-size: 0.95rem;
+    }
+
+    .custom-table tr:hover {
+        background-color: #fcfcfc;
+    }
+
+    /* Dynamic Badges matching Complaint/Notification UI */
+    .status-badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: capitalize;
+    }
+
+    .status-collected {
+        background-color: #e2f0d9;
+        color: #385723;
+        border: 1px solid #c5e0b4;
+    }
+
+    .status-pending {
+        background-color: #fff3cd;
+        color: #856404;
+        border: 1px solid #ffeeba;
+    }
+
+    /* Interactive Action Buttons */
+    .btn-action {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-action:hover {
+        background-color: #2980b9;
+    }
+
+    .btn-action:active {
+        transform: scale(0.98);
+    }
+
+    .inline-form {
+        margin: 0;
+        padding: 0;
+    }
+
+    .no-data {
+        text-align: center;
+        color: #7f8c8d;
+        font-style: italic;
+        padding: 30px !important;
+    }
+</style>
+
+<div class="page-container">
+    <h1 class="page-title">Wastes</h1>
+
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th style="width: 80px;">Sl No</th>
+                    <th>User</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in x %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><strong>{{ i.user_id.building_owner_name }}</strong></td>
+                    <td>{{ i.date }}</td>
+                    <td>
+                        {% if i.status == 'collected' %}
+                            <span class="status-badge status-collected">{{ i.status }}</span>
+                        {% else %}
+                            <span class="status-badge status-pending">{{ i.status }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if i.status != 'collected' %}
+                        <form method="post" action="/hks_update_waste/{{i.my_waste_id}}" class="inline-form">
+                            {% csrf_token %}
+                            <input type="submit" class="btn-action" value="Mark as Collected">
+                        </form>
+                        {% else %}
+                            <b class="status-badge status-collected">Collected</b>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="no-data">No Waste Details Found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% include 'public_footer.html' %}

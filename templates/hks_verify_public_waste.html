@@ -1,0 +1,251 @@
+{% include 'hks_custom_header.html' %}
+
+<style>
+    /* Modern styling theme matched to previous UI */
+    .page-container {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 0 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #333;
+    }
+
+    .page-title {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #ecf0f1;
+        padding-bottom: 12px;
+    }
+
+    /* Split Dashboard Grid */
+    .layout-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1.8fr;
+        gap: 30px;
+        align-items: start;
+    }
+
+    @media (max-width: 768px) {
+        .layout-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .section-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #34495e;
+        margin-top: 0;
+        margin-bottom: 20px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #eef2f5;
+    }
+
+    /* Detail / Image Card */
+    .media-card {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border: 1px solid #eef2f5;
+        text-align: center;
+    }
+
+    .waste-image {
+        max-width: 100%;
+        height: 240px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid #dee2e6;
+        margin-bottom: 12px;
+    }
+
+    /* Details Panel Card */
+    .details-card {
+        background: #ffffff;
+        padding: 24px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border: 1px solid #eef2f5;
+    }
+
+    .info-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 24px;
+    }
+
+    .info-table th {
+        text-align: left;
+        color: #7f8c8d;
+        font-weight: 500;
+        font-size: 0.95rem;
+        padding: 12px 0;
+        border-bottom: 1px solid #ebebeb;
+    }
+
+    .info-table td {
+        text-align: right;
+        color: #2c3e50;
+        font-weight: 600;
+        font-size: 0.95rem;
+        padding: 12px 0;
+        border-bottom: 1px solid #ebebeb;
+        line-height: 1.4;
+    }
+
+    /* Map Link Layout */
+    .btn-maps {
+        color: #3498db;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 4px;
+        font-size: 0.85rem;
+        font-weight: bold;
+    }
+
+    .btn-maps:hover {
+        text-decoration: underline;
+        color: #2980b9;
+    }
+
+    /* Reward Information Message */
+    .reward-banner {
+        background-color: #fff3cd;
+        color: #856404;
+        border-left: 4px solid #ffc107;
+        padding: 14px 16px;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        margin-bottom: 24px;
+        line-height: 1.5;
+    }
+
+    /* Status Badges */
+    .status-badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        background-color: #ffeeba;
+        color: #856404;
+        border: 1px solid #ffeeba;
+    }
+
+    /* Action buttons groups */
+    .action-group {
+        display: flex;
+        align-items: middle;
+        gap: 16px;
+    }
+
+    .btn-verify {
+        background-color: #27ae60;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-verify:hover {
+        background-color: #219653;
+    }
+
+    .btn-verify:active {
+        transform: scale(0.99);
+    }
+
+    .btn-cancel {
+        background-color: transparent;
+        color: #7f8c8d;
+        border: 1px solid #cccccc;
+        padding: 11px 20px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-cancel:hover {
+        background-color: #f8f9fa;
+        color: #c0392b;
+        border-color: #f5c6cb;
+    }
+</style>
+
+<div class="page-container">
+    <h1 class="page-title">Verify Public Waste</h1>
+
+    <div class="layout-grid">
+        
+        <div class="media-card">
+            <h2 class="section-title">Reported Proof</h2>
+            <img src="/media/{{ waste.image }}" class="waste-image" alt="Public Waste Evidence">
+            <div>
+                <span class="status-badge">{{ waste.status }}</span>
+            </div>
+        </div>
+
+        <div class="details-card">
+            <h2 class="section-title">Waste Report Information</h2>
+            
+            <table class="info-table">
+                <tr>
+                    <th>Reported By</th>
+                    <td>{{ waste.user_id.building_owner_name }}</td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>{{ waste.user_id.phone }}</td>
+                </tr>
+                <tr>
+                    <th>Ward</th>
+                    <td>Ward {{ waste.user_id.ward_id.ward_number }}</td>
+                </tr>
+                <tr>
+                    <th>Title</th>
+                    <td><strong>{{ waste.title }}</strong></td>
+                </tr>
+                <tr>
+                    <th>Location Coordinates</th>
+                    <td>
+                        Lat: {{ waste.latitude }} <br> 
+                        Lon: {{ waste.longitude }} <br>
+                        <a href="https://www.google.com/maps?q={{ waste.latitude }},{{ waste.longitude }}" 
+                           target="_blank" class="btn-maps">
+                           🗺️ View on Google Maps
+                        </a>
+                    </td>
+                </tr>
+            </table>
+
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="reward-banner">
+                    Click <strong>Verify</strong> to confirm this public waste incident assignment. 
+                    The verifying system user will receive <strong>50 reward points</strong> into their wallet stack.
+                </div>
+
+                <div class="action-group">
+                    <button type="submit" class="btn-verify" onclick="return confirm('Verify this waste and give 50 reward points to user?')">
+                        Verify & Give Reward
+                    </button>
+                    <a href="/hks_view_public_waste" class="btn-cancel">Cancel</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% include 'public_footer.html' %}

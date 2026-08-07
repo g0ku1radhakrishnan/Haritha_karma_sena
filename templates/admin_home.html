@@ -1,0 +1,182 @@
+{% include 'admin_header.html' %}
+
+<div class="container-fluid py-4">
+
+    <!-- Welcome Section -->
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card border-0 shadow-lg bg-primary text-white">
+                <div class="card-body p-4">
+                    <h2 class="fw-bold">Welcome Admin 👋</h2>
+                    <p class="mb-0">
+                        Haritha Karma Sena Management System Dashboard
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Cards -->
+    <div class="row g-4">
+
+        <!-- Manage Wards -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card shadow border-0 h-100">
+
+                <div class="card-body text-center">
+
+                    <div class="mb-3">
+                        <i class="bi bi-geo-alt-fill text-primary" style="font-size:55px;"></i>
+                    </div>
+
+                    <h4>Manage Wards</h4>
+
+                    <p class="text-muted">
+                        Add and manage ward details.
+                    </p>
+
+                    <a href="/admin_add_ward"
+                       class="btn btn-primary">
+                        Open Module
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Manage HKS -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card shadow border-0 h-100">
+
+                <div class="card-body text-center">
+
+                    <div class="mb-3">
+                        <i class="bi bi-people-fill text-success" style="font-size:55px;"></i>
+                    </div>
+
+                    <h4>Manage HKS</h4>
+
+                    <p class="text-muted">
+                        Add, update and manage HKS members.
+                    </p>
+
+                    <a href="/admin_add_hks"
+                       class="btn btn-success">
+                        Open Module
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Assign Ward -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card shadow border-0 h-100">
+
+                <div class="card-body text-center">
+
+                    <div class="mb-3">
+                        <i class="bi bi-diagram-3-fill text-warning" style="font-size:55px;"></i>
+                    </div>
+
+                    <h4>Assign Ward</h4>
+
+                    <p class="text-muted">
+                        Assign HKS members to wards.
+                    </p>
+
+                    <a href="/admin_assign_ward"
+                       class="btn btn-warning">
+                        Open Module
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- IT Officer -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card shadow border-0 h-100">
+
+                <div class="card-body text-center">
+
+                    <div class="mb-3">
+                        <i class="bi bi-person-workspace text-info" style="font-size:55px;"></i>
+                    </div>
+
+                    <h4>IT Officers</h4>
+
+                    <p class="text-muted">
+                        Add and manage IT Officers.
+                    </p>
+
+                    <a href="/adminadd_itofficer"
+                       class="btn btn-info text-white">
+                        Open Module
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Users -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card shadow border-0 h-100">
+
+                <div class="card-body text-center">
+
+                    <div class="mb-3">
+                        <i class="bi bi-person-lines-fill text-secondary" style="font-size:55px;"></i>
+                    </div>
+
+                    <h4>Users</h4>
+
+                    <p class="text-muted">
+                        View all registered users.
+                    </p>
+
+                    <a href="/admin_view_user"
+                       class="btn btn-secondary">
+                        Open Module
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Complaints -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card shadow border-0 h-100">
+
+                <div class="card-body text-center">
+
+                    <div class="mb-3">
+                        <i class="bi bi-chat-dots-fill text-danger" style="font-size:55px;"></i>
+                    </div>
+
+                    <h4>Complaints</h4>
+
+                    <p class="text-muted">
+                        View and reply to user complaints.
+                    </p>
+
+                    <a href="/admin_view_complaints"
+                       class="btn btn-danger">
+                        Open Module
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% include 'admin_footer.html' %}

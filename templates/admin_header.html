@@ -1,0 +1,97 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CWMS Admin</title>
+  <link rel="stylesheet" href="/static/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+  <link rel="stylesheet" href="/static/assets/css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+  <div class="admin-shell">
+    <div class="sidebar-backdrop" data-sidebar-close></div>
+
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="sidebar-header">
+        <a class="brand-mark" href="/adminhome">
+          <span class="brand-icon"><i class="bi bi-grid-1x2-fill"></i></span>
+          <span class="brand-copy">
+            <span class="brand-title"></span>
+            <span class="brand-subtitle">Admin Panel</span>
+          </span>
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="nav-link" href="/admin_home">
+          <span class="nav-icon"><i class="bi bi-speedometer2"></i></span>
+          <span class="nav-text">Dashboard</span>
+        </a>
+        <a class="nav-link" href="/admin_add_ward">
+          <span class="nav-icon"><i class="bi bi-box-seam"></i></span>
+          <span class="nav-text">ADD Ward</span>
+        </a>
+        <a class="nav-link" href="/admin_add_hks">
+          <span class="nav-icon"><i class="bi bi-people"></i></span>
+          <span class="nav-text">Add Hs members</span>
+        </a>
+        <a class="nav-link" href="/admin_assign_ward">
+          <span class="nav-icon"><i class="bi bi-cash-stack"></i></span>
+          <span class="nav-text">Assign ward</span>
+        </a>
+        <a class="nav-link" href="/adminadd_itofficer"> 
+          <span class="nav-icon"><i class="bi bi-bar-chart-line"></i></span>
+          <span class="nav-text">ADD IT officer</span>
+        </a>
+        <a class="nav-link" href="/admin_view_user">
+          <span class="nav-icon"><i class="bi bi-wallet2"></i></span>
+          <span class="nav-text">View user</span>
+        </a>
+          <a class="nav-link" href="/admin_view_complaints">
+          <span class="nav-icon"><i class="bi bi-wallet2"></i></span>
+          <span class="nav-text"> View Complaints</span></a>
+
+
+        </a>
+        <a class="nav-link" href="/">
+          <span class="nav-icon"><i class="bi bi-box-arrow-right"></i></span>
+          <span class="nav-text">Logout</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-user">
+        <img class="avatar-img avatar-md sidebar-user-avatar"
+             src="/static/assets/images/avatar/avatar.jpg" alt="Admin">
+        <strong>Admin</strong>
+        <small>Active Workspace</small>
+      </div>
+
+      <div class="sidebar-footer">
+        <span class="status-dot"></span>
+        <span class="sidebar-footer-text">System running smoothly</span>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT STARTS -->
+    <div class="admin-main">
+      <nav class="navbar admin-navbar navbar-expand bg-white">
+        <div class="container-fluid px-3 px-lg-4">
+          <button class="sidebar-toggle" type="button" data-sidebar-toggle>
+            <span></span><span></span><span></span>
+          </button>
+          <div class="navbar-actions ms-auto">
+            <button class="icon-button theme-toggle" type="button" data-theme-toggle>
+              <i class="bi bi-moon-stars" data-theme-icon></i>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <!-- PAGE CONTENT GOES AFTER THIS -->
+      <div class="container-fluid px-3 px-lg-4 py-4">

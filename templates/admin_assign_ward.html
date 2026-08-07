@@ -1,0 +1,247 @@
+{% include 'admin_header.html' %}
+
+<div class="container-fluid py-4">
+
+    <!-- Page Title -->
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="fw-bold text-white">
+                Assign HKS Member to Ward
+            </h2>
+        </div>
+    </div>
+
+    <!-- Success Messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert">
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row">
+
+        <!-- Assignment Form -->
+        <div class="col-lg-4">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        Assign Ward
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                HKS Member
+                            </label>
+
+                            <select class="form-select" name="hks_id" required>
+
+                                <option value="">Select HKS Member</option>
+
+                                {% for h in hks_members %}
+
+                                    <option value="{{ h.hks_id }}">
+                                        {{ h.name }} ({{ h.type }})
+                                    </option>
+
+                                {% empty %}
+
+                                    <option disabled>
+                                        No HKS Members Found
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Ward
+                            </label>
+
+                            <select class="form-select" name="ward_id" required>
+
+                                <option value="">
+                                    Select Ward
+                                </option>
+
+                                {% for w in wards %}
+
+                                    <option value="{{ w.ward_id }}">
+                                        Ward {{ w.ward_number }}
+                                    </option>
+
+                                {% empty %}
+
+                                    <option disabled>
+                                        No Wards Found
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+                        <button class="btn btn-primary w-100">
+
+                            Assign Ward
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Assignment Table -->
+
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        Current Assignments
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover table-bordered align-middle">
+
+                            <thead class="table-primary">
+
+                                <tr>
+
+                                    <th>Sl No</th>
+                                    <th>HKS Member</th>
+                                    <th>Member Type</th>
+                                    <th>Assigned Ward</th>
+                                    <th width="140">
+                                        Action
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                {% for a in assignments %}
+
+                                <tr>
+
+                                    <td>
+                                        {{ forloop.counter }}
+                                    </td>
+
+                                    <td>
+
+                                        <strong>
+                                            {{ a.hks_id.name }}
+                                        </strong>
+
+                                    </td>
+
+                                    <td>
+
+                                        {% if a.hks_id.type == 'normal' %}
+
+                                            <span class="badge bg-success">
+                                                A - Normal
+                                            </span>
+
+                                        {% elif a.hks_id.type == 'custom' %}
+
+                                            <span class="badge bg-primary">
+                                                B - Custom
+                                            </span>
+
+                                        {% elif a.hks_id.type == 'delivery' %}
+
+                                            <span class="badge bg-warning text-dark">
+                                                C - Delivery
+                                            </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+                                    <td>
+
+                                        <span class="badge bg-info text-dark fs-6">
+
+                                            Ward {{ a.ward_id.ward_number }}
+
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <a href="/admin_delete_assignment/{{ a.assign_id }}"
+                                           class="btn btn-danger btn-sm"
+                                           onclick="return confirm('Remove this assignment?')">
+
+                                            Remove
+
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                                {% empty %}
+
+                                <tr>
+
+                                    <td colspan="5"
+                                        class="text-center text-muted py-4">
+
+                                        No assignments available.
+
+                                    </td>
+
+                                </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% include 'admin_footer.html' %}

@@ -1,0 +1,92 @@
+{% load static %}
+
+<section id="contact" class="bg-slate-900 text-slate-300 py-20 relative overflow-hidden">
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-eco-900/20 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl grid lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-5 space-y-6">
+                <span class="text-eco-500 font-bold text-xs uppercase tracking-widest">Connect Matrix</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Contact Regional Coordination</h2>
+                <p class="text-slate-400 leading-relaxed text-sm sm:text-base">
+                    Have queries regarding regional collection calendar anomalies, structural business container setups, or enterprise processing contracts? Submit your details directly.
+                </p>
+                
+                <div class="space-y-4 pt-4 text-sm">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-eco-500 flex-shrink-0"><i class="fas fa-map-location-dot"></i></div>
+                        <p class="text-slate-300 leading-relaxed">Local Self Government (LSG) Complex,<br><span class="text-slate-400">Green Operational Base, Kerala, India</span></p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-eco-500 flex-shrink-0"><i class="fas fa-envelope-open-text"></i></div>
+                        <p class="text-slate-300">operations@harithakarmasena.org</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-eco-500 flex-shrink-0"><i class="fas fa-headset"></i></div>
+                        <p class="text-slate-300">+91 487 234 5678</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 bg-slate-800/80 backdrop-blur-md p-6 sm:p-10 rounded-3xl border border-slate-700/60 shadow-xl">
+                <h3 class="text-xl font-bold text-white mb-6">File Dispatch / Collection Inquiry</h3>
+                <form class="space-y-5" action="#" method="POST" onsubmit="event.preventDefault(); alert('Query safely captured into green tracking pipeline.');">
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase text-slate-400 mb-2 tracking-wide">Citizen Full Name</label>
+                            <input type="text" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-eco-500 transition-colors text-sm" placeholder="Gokul P" required>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase text-slate-400 mb-2 tracking-wide">Contact Anchor (Phone / Email)</label>
+                            <input type="text" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-eco-500 transition-colors text-sm" placeholder="example@domain.com" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase text-slate-400 mb-2 tracking-wide">Logistical Pipeline Query Category</label>
+                        <select class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-slate-300 focus:outline-none focus:border-eco-500 transition-colors text-sm">
+                            <option>Residential Route Discrepancies</option>
+                            <option>Bulk Industrial Material Setup</option>
+                            <option>Hazardous Electronic Decommissioning</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase text-slate-400 mb-2 tracking-wide">Context Summary</label>
+                        <textarea rows="4" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-eco-500 transition-colors text-sm placeholder-slate-600" placeholder="Specify your ward number or location details..." required></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-eco-600 to-eco-700 hover:from-eco-700 hover:to-eco-800 text-white font-bold p-3.5 rounded-xl transition duration-300 uppercase tracking-widest text-xs shadow-lg shadow-eco-700/20 hover:scale-[1.01]">
+                        Submit Green Request
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-20 border-t border-slate-800/80 pt-8 text-center text-[11px] text-slate-500 tracking-wider font-medium">
+            &copy; 2026 HARITHA KARMA SENA MANAGEMENT SYSTEM. ALL RIGHTS ARCHIVED.
+        </div>
+    </section>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            
+            // Toggle hamburger icon smoothly
+            if(mobileMenu.classList.contains('hidden')) {
+                menuIcon.className = "fas fa-bars text-2xl transition-transform duration-300";
+            } else {
+                menuIcon.className = "fas fa-xmark text-2xl transition-transform duration-300 rotate-90 text-eco-600";
+            }
+        });
+
+        // Close dropdown when anchors clicked
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.className = "fas fa-bars text-2xl";
+            });
+        });
+    </script>
+</body>
+</html>

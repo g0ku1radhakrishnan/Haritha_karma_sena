@@ -1,0 +1,131 @@
+{% include 'user_header.html' %}
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Waste Payment | Haritha Karma Sena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        eco: {
+                            50: '#f2fcf5',
+                            100: '#e2f7e9',
+                            200: '#c5eed4',
+                            600: '#10b981',
+                            700: '#059669',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        accent: {
+                            gold: '#f59e0b',
+                            lime: '#84cc16'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen py-10">
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl space-y-8">
+        
+        <div class="border-b border-slate-200/60 pb-4">
+            <h1 class="text-3xl font-black text-slate-900 tracking-tight">Custom Waste Payment</h1>
+            <div class="h-1 w-12 bg-gradient-to-r from-eco-600 to-accent-lime rounded-full mt-2"></div>
+        </div>
+
+        <div class="bg-white rounded-3xl border border-slate-100 shadow-xl shadow-slate-100/70 overflow-hidden">
+            <div class="bg-slate-50 px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Invoice Overview</span>
+                <span class="text-xs font-semibold text-slate-500 bg-white border border-slate-200 px-3 py-1 rounded-full flex items-center gap-1.5">
+                    <i class="far fa-calendar text-eco-600"></i> {{ custom_request.date }}
+                </span>
+            </div>
+            
+            <div class="p-6 space-y-4 divide-y divide-slate-100/80">
+                <div class="flex justify-between items-center text-sm font-medium pt-2 first:pt-0">
+                    <span class="text-slate-500">Request Date</span>
+                    <span class="text-slate-900 font-semibold">{{ custom_request.date }}</span>
+                </div>
+
+                {% if waste_status %}
+                <div class="flex justify-between items-center text-sm font-medium pt-3">
+                    <span class="text-slate-500">Bio Quantity</span>
+                    <span class="text-slate-900 font-semibold">{{ waste_status.bio_quantity }} kg</span>
+                </div>
+                <div class="flex justify-between items-center text-sm font-medium pt-3">
+                    <span class="text-slate-500">Bio Amount</span>
+                    <span class="text-eco-700 font-semibold">₹{{ waste_status.bio_amount }}</span>
+                </div>
+                <div class="flex justify-between items-center text-sm font-medium pt-3">
+                    <span class="text-slate-500">Plastic Quantity</span>
+                    <span class="text-slate-900 font-semibold">{{ waste_status.plastic_quantity }} kg</span>
+                </div>
+                <div class="flex justify-between items-center text-sm font-medium pt-3">
+                    <span class="text-slate-500">Plastic Amount</span>
+                    <span class="text-eco-700 font-semibold">₹{{ waste_status.plastic_amount }}</span>
+                </div>
+                {% endif %}
+
+                <div class="flex justify-between items-center text-base pt-4">
+                    <span class="text-slate-900 font-bold">Total Amount</span>
+                    <span class="text-2xl font-black bg-gradient-to-r from-eco-600 to-eco-800 bg-clip-text text-transparent">
+                        ₹{{ custom_request.total_amount }}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-xl shadow-slate-100/70">
+            <form method="POST" class="space-y-6">
+                {% csrf_token %}
+                
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold uppercase text-slate-400 tracking-wide">Payment Method</label>
+                    <div class="relative">
+                        <select name="payment_method" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 pr-10 text-slate-800 font-medium focus:outline-none focus:border-eco-500 appearance-none text-sm transition-colors" required>
+                            <option value="">Select method</option>
+                            <option value="cash">Cash</option>
+                            <option value="online">Online</option>
+                            <option value="upi">UPI</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400 text-xs">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center sm:justify-between gap-4 pt-2">
+                    <button type="submit" 
+                            class="w-full sm:w-auto bg-gradient-to-r from-eco-600 to-eco-700 hover:from-eco-700 hover:to-eco-800 text-white font-bold px-8 py-3.5 rounded-xl transition duration-300 uppercase tracking-widest text-xs shadow-lg shadow-eco-700/20 hover:scale-[1.01] order-2 sm:order-1"
+                            onclick="return confirm('Confirm payment of ₹{{ custom_request.total_amount }}?')">
+                        Pay Now
+                    </button>
+                    
+                    <a href="/user_send_custom_waste" class="w-full sm:w-auto text-center text-slate-400 hover:text-slate-600 font-semibold text-sm py-2 px-4 transition-colors order-1 sm:order-2">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+</body>
+</html>
+    {% include 'public_footer.html' %}
+

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+        /* Modern styling theme matched to previous UI */
+        .page-container {
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 0 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        /* Message Alerts */
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+            border-left: 4px solid #28a745;
+        }
+
+        /* Form Card Styling */
+        .form-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eef2f5;
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        /* Full width for specific rows */
+        .full-width {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: span 1;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #495057;
+            font-size: 0.9rem;
+        }
+
+        .custom-input, .custom-select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cccccc;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            background-color: #fff;
+        }
+
+        .custom-input:focus, .custom-select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+        }
+
+        /* Action elements styling */
+        .btn-submit {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.99);
+        }
+
+        .footer-text {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            margin-top: 20px;
+        }
+
+        .footer-text a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-container">
+    <h1 class="page-title">User Registration</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert-success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="form-card">
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label for="name">Building Owner Name</label>
+                    <input type="text" id="name" class="custom-input" name="name" placeholder="Enter building owner name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="buildnumber">Building Number</label>
+                    <input type="text" id="buildnumber" class="custom-input" name="buildnumber" placeholder="Enter building number" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="housename">House Name</label>
+                    <input type="text" id="housename" class="custom-input" name="housename" placeholder="Enter house name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="place">Place</label>
+                    <input type="text" id="place" class="custom-input" name="place" placeholder="Enter place" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="ward_id">Ward</label>
+                    <select id="ward_id" class="custom-select" name="ward_id" required>
+                        <option value="">Select your ward</option>
+                        {% for w in wards %}
+                            <option value="{{ w.ward_id }}">Ward {{ w.ward_number }}</option>
+                        {% empty %}
+                            <option disabled>No wards available</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="custom-input" name="email" placeholder="Enter email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="number" id="phone" class="custom-input" name="phone" placeholder="Enter phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="uname">Username</label>
+                    <input type="text" id="uname" class="custom-input" name="uname" placeholder="Enter username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="pswd">Password</label>
+                    <input type="password" id="pswd" class="custom-input" name="pswd" placeholder="Enter password" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">Register</button>
+        </form>
+    </div>
+
+    <p class="footer-text">Already have an account? <a href="/login">Login here</a></p>
+</div>
+
+</body>
+</html>

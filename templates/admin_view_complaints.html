@@ -1,0 +1,145 @@
+{% include 'admin_header.html' %}
+
+<div class="container-fluid py-4">
+
+    <!-- Page Heading -->
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="fw-bold text-white">
+                View Complaints
+            </h2>
+        </div>
+    </div>
+
+    <!-- Success Messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert">
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Complaint Table -->
+    <div class="card shadow border-0">
+
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">
+                All Complaints
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover table-bordered align-middle">
+
+                    <thead class="table-primary">
+
+                        <tr>
+                            <th width="70">Sl No</th>
+                            <th>Sender</th>
+                            <th>Description</th>
+                            <th width="130">Date</th>
+                            <th>Reply</th>
+                            <th width="150">Status</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for c in complaints %}
+
+                        <tr>
+
+                            <td>
+                                {{ forloop.counter }}
+                            </td>
+
+                            <td>
+                                <strong>{{ c.sender_id.username }}</strong>
+                            </td>
+
+                            <td>
+                                {{ c.description }}
+                            </td>
+
+                            <td>
+                                {{ c.date }}
+                            </td>
+
+                            <td>
+
+                                {% if c.reply %}
+
+                                    <span class="text-success">
+                                        {{ c.reply }}
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="text-danger fw-semibold">
+                                        Not Replied
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                {% if c.reply %}
+
+                                    <span class="badge bg-success fs-6">
+                                        ✓ Replied
+                                    </span>
+
+                                {% else %}
+
+                                    <a href="/admin_reply_complaint/{{ c.complaints_id }}"
+                                       class="btn btn-primary btn-sm">
+
+                                        Reply
+
+                                    </a>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td colspan="6"
+                                class="text-center text-muted py-4">
+
+                                No complaints found.
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% include 'admin_footer.html' %}

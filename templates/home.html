@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haritha Karma Sena | Sustainable Waste Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        eco: {
+                            50: '#f2fcf5',
+                            100: '#e2f7e9',
+                            200: '#c5eed4',
+                            600: '#10b981',
+                            700: '#059669',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        accent: {
+                            gold: '#f59e0b',
+                            lime: '#84cc16'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-subtle': 'pulseSubtle 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        pulseSubtle: {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0.85, transform: 'scale(1.02)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased overflow-x-hidden">
+
+    <header class="glass-nav border-b border-slate-100 sticky top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="#home" class="flex items-center space-x-3 group">
+                <div class="bg-gradient-to-br from-eco-600 to-eco-800 p-2.5 rounded-xl text-white shadow-md shadow-eco-600/20 group-hover:rotate-12 transition-transform duration-300">
+                    <i class="fas fa-leaf text-lg"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-extrabold text-lg sm:text-xl tracking-tight text-eco-900 leading-none">Haritha Karma Sena</span>
+                    <span class="text-[10px] uppercase tracking-widest text-eco-600 font-bold mt-0.5">Green Action Force</span>
+                </div>
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-8 font-semibold text-sm text-slate-600">
+                <a href="#home" class="hover:text-eco-700 transition relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-eco-600 after:left-0 after:-bottom-1 hover:after:w-full after:transition-all">Home</a>
+                <a href="#about" class="hover:text-eco-700 transition relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-eco-600 after:left-0 after:-bottom-1 hover:after:w-full after:transition-all">About</a>
+                <a href="#services" class="hover:text-eco-700 transition relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-eco-600 after:left-0 after:-bottom-1 hover:after:w-full after:transition-all">Services</a>
+                <a href="#impact" class="hover:text-eco-700 transition relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-eco-600 after:left-0 after:-bottom-1 hover:after:w-full after:transition-all">Impact</a>
+                <a href="#contact" class="hover:text-eco-700 transition relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-eco-600 after:left-0 after:-bottom-1 hover:after:w-full after:transition-all">Contact</a>
+            </nav>
+
+            <div class="hidden md:flex items-center">
+                <a href="/login" class="bg-gradient-to-r from-eco-600 to-eco-700 hover:from-eco-700 hover:to-eco-800 text-white px-6 py-2.5 rounded-xl shadow-lg shadow-eco-600/20 transition-all duration-300 font-medium text-sm hover:-translate-y-0.5">
+                    Log in
+                </a>
+            </div>
+
+            <button id="menu-btn" class="md:hidden flex p-2 text-slate-700 focus:outline-none" aria-label="Toggle Menu">
+                <i id="menu-icon" class="fas fa-bars text-2xl transition-transform duration-300"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-100 absolute w-full left-0 shadow-lg px-6 py-4 space-y-4 transition-all duration-300 ease-in-out">
+            <a href="#home" class="block font-medium text-slate-700 hover:text-eco-600 py-1">Home</a>
+            <a href="#about" class="block font-medium text-slate-700 hover:text-eco-600 py-1">About Us</a>
+            <a href="#services" class="block font-medium text-slate-700 hover:text-eco-600 py-1">Services</a>
+            <a href="#impact" class="block font-medium text-slate-700 hover:text-eco-600 py-1">Our Impact</a>
+            <a href="#contact" class="block font-medium text-slate-700 hover:text-eco-600 py-1">Contact</a>
+            <a href="#contact" class="block text-center bg-eco-600 text-white font-medium py-2.5 rounded-xl shadow">Schedule Pickup</a>
+        </div>
+    </header>
+
+    <section id="home" class="relative bg-gradient-to-b from-eco-50 via-white to-slate-50 pt-12 pb-20 md:py-28 lg:py-36 overflow-hidden">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-b from-eco-200/40 to-transparent rounded-full blur-3xl -z-10 translate-x-1/3 -translate-y-1/3"></div>
+        <div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gradient-to-t from-accent-lime/20 to-transparent rounded-full blur-3xl -z-10 -translate-x-1/3"></div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-7 lg:col-span-6 space-y-6 text-center md:text-left">
+                <span class="inline-flex items-center gap-1.5 bg-eco-100 text-eco-800 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
+                    <span class="w-2 h-2 rounded-full bg-eco-600 animate-pulse"></span> State-Wide Eco Initiative
+                </span>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] tracking-tight">
+                    Smart Waste <br class="hidden lg:inline"> Management For A <br>
+                    <span class="bg-gradient-to-r from-eco-600 to-accent-lime bg-clip-text text-transparent">Greener Tomorrow.</span>
+                </h1>
+                <p class="text-slate-600 text-base sm:text-lg max-w-xl mx-auto md:mx-0 leading-relaxed">
+                    Transforming local waste processing into automated value chains. We bridge structural community gaps through standardized doorstep aggregation and circular processing loops.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-4 pt-4">
+                    <a href="#services" class="group bg-slate-900 hover:bg-slate-800 text-white px-8 py-3.5 rounded-xl shadow-xl font-semibold transition duration-300 flex items-center justify-center gap-2 hover:scale-[1.02]">
+                        Explore Services <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#about" class="bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 px-8 py-3.5 rounded-xl shadow-sm font-semibold transition duration-300 text-center hover:scale-[1.02]">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+            
+            <div class="md:col-span-5 lg:col-span-6 relative flex justify-center items-center">
+                <div class="relative w-full max-w-md lg:max-w-lg aspect-square animate-float">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-eco-600 to-accent-lime rounded-3xl rotate-6 scale-95 opacity-20 blur-sm"></div>
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800" alt="Environmental Action" class="w-full h-full object-cover rounded-3xl shadow-2xl border-4 border-white">
+                    
+                    <div class="absolute -bottom-6 -left-6 bg-white/90 backdrop-blur p-4 rounded-2xl shadow-xl flex items-center space-x-3 border border-slate-100 max-w-[220px]">
+                        <div class="bg-eco-100 p-3 rounded-xl text-eco-700 text-xl flex-shrink-0">
+                            <i class="fas fa-recycle animate-spin-slow"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-900 text-sm">100% Segregated</p>
+                            <p class="text-[11px] text-slate-500 font-medium">Zero local open burning</p>
+                        </div>
+                    </div>
+
+                    <div class="absolute -top-6 -right-6 bg-white/90 backdrop-blur p-4 rounded-2xl shadow-xl flex items-center space-x-3 border border-slate-100 hidden sm:flex">
+                        <div class="bg-amber-100 p-2.5 rounded-xl text-amber-600 text-lg">
+                            <i class="fas fa-shield-halved"></i>
+                        </div>
+                        <p class="font-bold text-slate-800 text-xs">ISO Processing Standards</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 md:py-28 bg-white relative">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-5 space-y-4">
+                    <span class="text-eco-600 font-bold uppercase text-xs tracking-widest block">Core Infrastructure</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Who Are The Green Warriors?</h2>
+                    <div class="h-1.5 w-16 bg-gradient-to-r from-eco-600 to-accent-lime rounded-full"></div>
+                    <p class="text-slate-600 leading-relaxed pt-2">
+                        The <strong>Haritha Karma Sena (Green Action Force)</strong> operates as a structured, professional enterprise empowering local self-governments to completely neutralize non-biodegradable landfill traces.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed">
+                        Through strict source-segregation pipelines and consistent field operational cycles, our units convert municipal vulnerabilities into raw materials for verified industrial recyclers.
+                    </p>
+                </div>
+                
+                <div class="lg:col-span-7 grid sm:grid-cols-2 gap-6">
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 space-y-3 shadow-sm hover:bg-eco-50/50 transition duration-300">
+                        <div class="text-eco-600 text-2xl"><i class="fas fa-bullseye"></i></div>
+                        <h4 class="font-bold text-lg text-slate-900">Our Target</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">Achieve absolute zero-waste status across all designated ward territories via aggressive containment.</p>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 space-y-3 shadow-sm hover:bg-eco-50/50 transition duration-300">
+                        <div class="text-accent-lime text-2xl"><i class="fas fa-hand-holding-heart"></i></div>
+                        <h4 class="font-bold text-lg text-slate-900">Socio-Economic Lift</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">Stabilizing green livelihood infrastructures for thousands of specialized women operators.</p>
+                    </div>
+                    <div class="sm:col-span-2 bg-gradient-to-r from-eco-900 to-eco-800 p-8 rounded-3xl text-white relative overflow-hidden shadow-lg">
+                        <div class="absolute right-0 bottom-0 translate-x-10 translate-y-10 opacity-10 text-9xl">
+                            <i class="fas fa-quote-right"></i>
+                        </div>
+                        <p class="italic text-base sm:text-lg text-eco-100 relative z-10 font-medium">
+                            "By sorting polymers at the root level, we structurally stop toxic waste pipelines before they choke our local water beds and public environments."
+                        </p>
+                        <p class="text-xs text-accent-lime font-bold uppercase tracking-widest mt-4 relative z-10">— Operational Directives</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-20 md:py-28 bg-slate-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <span class="text-eco-600 font-bold uppercase text-xs tracking-widest block">Ecosystem Architecture</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Structured Eco-Services</h2>
+                <p class="text-slate-600 text-sm sm:text-base">Standardized execution methodologies engineered for domestic, corporate, and civil domains.</p>
+                <div class="h-1.5 w-16 bg-gradient-to-r from-eco-600 to-accent-lime mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+                <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 bg-eco-50 text-eco-600 flex items-center justify-center rounded-xl text-xl mb-6 group-hover:bg-eco-600 group-hover:text-white transition-all duration-300 shadow-inner">
+                            <i class="fas fa-truck-ramp-box"></i>
+                        </div>
+                        <h3 class="font-bold text-xl text-slate-900 mb-2">Doorstep Aggregation</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Systematic recurring collection matrices engineered explicitly for residential dry polymers, cards, and alloys.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-50 flex justify-between items-center">
+                        <span class="text-xs font-bold text-eco-700 bg-eco-50 px-3 py-1 rounded-full">Monthly Cycle</span>
+                        <i class="fas fa-chevron-right text-xs text-slate-300 group-hover:text-eco-600 transition-colors"></i>
+                    </div>
+                </div>
+                <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 bg-amber-50 text-amber-600 flex items-center justify-center rounded-xl text-xl mb-6 group-hover:bg-amber-500 group-hover:text-white transition-all duration-300 shadow-inner">
+                            <i class="fas fa-charging-station"></i>
+                        </div>
+                        <h3 class="font-bold text-xl text-slate-900 mb-2">E-Waste Containment</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Safe pickup, logistical transport, and neutralization pipelines for heavily toxic consumer electronic components.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-50 flex justify-between items-center">
+                        <span class="text-xs font-bold text-amber-700 bg-amber-50 px-3 py-1 rounded-full">Quarterly Tracks</span>
+                        <i class="fas fa-chevron-right text-xs text-slate-300 group-hover:text-amber-600 transition-colors"></i>
+                    </div>
+                </div>
+                <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 bg-sky-50 text-sky-600 flex items-center justify-center rounded-xl text-xl mb-6 group-hover:bg-sky-500 group-hover:text-white transition-all duration-300 shadow-inner">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="font-bold text-xl text-slate-900 mb-2">Public Literacy</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Activating neighborhood campaigns and operational seminars to seed clean source-separation practices.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-50 flex justify-between items-center">
+                        <span class="text-xs font-bold text-sky-700 bg-sky-50 px-3 py-1 rounded-full">Continuous Deployment</span>
+                        <i class="fas fa-chevron-right text-xs text-slate-300 group-hover:text-sky-600 transition-colors"></i>
+                    </div>
+                </div>
+                <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 bg-purple-50 text-purple-600 flex items-center justify-center rounded-xl text-xl mb-6 group-hover:bg-purple-500 group-hover:text-white transition-all duration-300 shadow-inner">
+                            <i class="fas fa-dolly"></i>
+                        </div>
+                        <h3 class="font-bold text-xl text-slate-900 mb-2">Facility Logistics</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Managing integrated Material Collection Facilities (MCFs) to cleanly sort and compress high-volume shipments.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-50 flex justify-between items-center">
+                        <span class="text-xs font-bold text-purple-700 bg-purple-50 px-3 py-1 rounded-full">Daily Aggregation</span>
+                        <i class="fas fa-chevron-right text-xs text-slate-300 group-hover:text-purple-600 transition-colors"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="impact" class="py-20 md:py-28 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <span class="text-eco-600 font-bold uppercase text-xs tracking-widest block">Quantifiable Transformations</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Our Metrics In Real-Time</h2>
+                <div class="h-1.5 w-16 bg-gradient-to-r from-eco-600 to-accent-lime mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid sm:grid-cols-12 gap-6 mb-16">
+                <div class="sm:col-span-7 group relative overflow-hidden rounded-3xl shadow-md aspect-[4/3] sm:aspect-auto sm:h-[400px]">
+                    <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition duration-500 z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?auto=format&fit=crop&q=80&w=800" alt="Recycling center processing layout" class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out">
+                    <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8 z-20 text-white bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent">
+                        <span class="text-accent-lime font-bold text-xs uppercase tracking-widest bg-white/10 px-3 py-1 rounded-full backdrop-blur">Processing Hubs</span>
+                        <h4 class="font-extrabold text-xl sm:text-2xl mt-3">Advanced Circular Supply Loops</h4>
+                        <p class="text-xs sm:text-sm text-slate-200 mt-2 max-w-md">Systematic sorting protocols sorting incoming plastic batches down to targeted resin classes.</p>
+                    </div>
+                </div>
+                
+                <div class="sm:col-span-5 group relative overflow-hidden rounded-3xl shadow-md aspect-[4/3] sm:aspect-auto sm:h-[400px]">
+                    <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition duration-500 z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1528323273322-d81458248d40?q=80&w=1229&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Clean storage of processed items" class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out">
+                    <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8 z-20 text-white bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent">
+                        <span class="text-eco-300 font-bold text-xs uppercase tracking-widest bg-white/10 px-3 py-1 rounded-full backdrop-blur">Field Operations</span>
+                        <h4 class="font-extrabold text-xl sm:text-2xl mt-3">Zero Waste Mandates</h4>
+                        <p class="text-xs sm:text-sm text-slate-200 mt-2">Meticulously processing regional dry mass away from open topographies.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-slate-900 to-eco-950 rounded-3xl p-8 sm:p-12 text-white grid grid-cols-1 sm:grid-cols-3 gap-8 text-center shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-eco-600/10 rounded-full blur-2xl pointer-events-none"></div>
+                <div class="space-y-1 relative z-10">
+                    <p class="text-4xl sm:text-5xl font-black tracking-tight text-white bg-gradient-to-r from-white to-eco-200 bg-clip-text">10,000+</p>
+                    <p class="text-eco-400 font-bold text-xs uppercase tracking-widest pt-2">Households Managed</p>
+                </div>
+                <div class="space-y-1 relative z-10 sm:border-x sm:border-slate-800">
+                    <p class="text-4xl sm:text-5xl font-black tracking-tight text-white bg-gradient-to-r from-white to-accent-lime bg-clip-text">50+ Tons</p>
+                    <p class="text-eco-400 font-bold text-xs uppercase tracking-widest pt-2">Diverted From Landfills</p>
+                </div>
+                <div class="space-y-1 relative z-10">
+                    <p class="text-4xl sm:text-5xl font-black tracking-tight text-eco-400">100%</p>
+                    <p class="text-eco-400 font-bold text-xs uppercase tracking-widest pt-2">Eco-Certified Processing</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="bg-slate-900 text-slate-300 py-20 relative overflow-hidden">
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-eco-900/20 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl grid lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-5 space-y-6">
+                <span class="text-eco-500 font-bold text-xs uppercase tracking-widest">Connect Matrix</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Contact Regional Coordination</h2>
+                <p class="text-slate-400 leading-relaxed text-sm sm:text-base">
+                    Have queries regarding regional collection calendar anomalies, structural business container setups, or enterprise processing contracts? Submit your details directly.
+                </p>
+                
+                <div class="space-y-4 pt-4 text-sm">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-eco-500 flex-shrink-0"><i class="fas fa-map-location-dot"></i></div>
+                        <p class="text-slate-300 leading-relaxed">Local Self Government (LSG) Complex,<br><span class="text-slate-400">Green Operational Base, Kerala, India</span></p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-eco-500 flex-shrink-0"><i class="fas fa-envelope-open-text"></i></div>
+                        <p class="text-slate-300">operations@harithakarmasena.org</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-eco-500 flex-shrink-0"><i class="fas fa-headset"></i></div>
+                        <p class="text-slate-300">+91 487 234 5678</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 bg-slate-800/80 backdrop-blur-md p-6 sm:p-10 rounded-3xl border border-slate-700/60 shadow-xl">
+                <h3 class="text-xl font-bold text-white mb-6">File Dispatch / Collection Inquiry</h3>
+                <form class="space-y-5" action="#" method="POST" onsubmit="event.preventDefault(); alert('Query safely captured into green tracking pipeline.');">
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase text-slate-400 mb-2 tracking-wide">Citizen Full Name</label>
+                            <input type="text" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-eco-500 transition-colors text-sm" placeholder="Gokul P" required>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase text-slate-400 mb-2 tracking-wide">Contact Anchor (Phone / Email)</label>
+                            <input type="text" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-eco-500 transition-colors text-sm" placeholder="example@domain.com" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase text-slate-400 mb-2 tracking-wide">Logistical Pipeline Query Category</label>
+                        <select class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-slate-300 focus:outline-none focus:border-eco-500 transition-colors text-sm">
+                            <option>Residential Route Discrepancies</option>
+                            <option>Bulk Industrial Material Setup</option>
+                            <option>Hazardous Electronic Decommissioning</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase text-slate-400 mb-2 tracking-wide">Context Summary</label>
+                        <textarea rows="4" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-eco-500 transition-colors text-sm placeholder-slate-600" placeholder="Specify your ward number or location details..." required></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-eco-600 to-eco-700 hover:from-eco-700 hover:to-eco-800 text-white font-bold p-3.5 rounded-xl transition duration-300 uppercase tracking-widest text-xs shadow-lg shadow-eco-700/20 hover:scale-[1.01]">
+                        Submit Green Request
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-20 border-t border-slate-800/80 pt-8 text-center text-[11px] text-slate-500 tracking-wider font-medium">
+            &copy; 2026 HARITHA KARMA SENA MANAGEMENT SYSTEM. ALL RIGHTS ARCHIVED.
+        </div>
+    </section>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            
+            // Toggle hamburger icon smoothly
+            if(mobileMenu.classList.contains('hidden')) {
+                menuIcon.className = "fas fa-bars text-2xl transition-transform duration-300";
+            } else {
+                menuIcon.className = "fas fa-xmark text-2xl transition-transform duration-300 rotate-90 text-eco-600";
+            }
+        });
+
+        // Close dropdown when anchors clicked
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.className = "fas fa-bars text-2xl";
+            });
+        });
+    </script>
+</body>
+</html>

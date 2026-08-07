@@ -1,0 +1,197 @@
+{% include 'hks_custom_header.html' %}
+
+<style>
+    /* Modern styling theme matched to previous UI */
+    .page-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #333;
+    }
+
+    .page-title {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 24px;
+        text-transform: capitalize;
+        border-bottom: 2px solid #ecf0f1;
+        padding-bottom: 10px;
+    }
+
+    /* Message Alerts */
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        padding: 12px 16px;
+        border-radius: 6px;
+        margin-bottom: 24px;
+        font-size: 0.95rem;
+        border-left: 4px solid #28a745;
+    }
+
+    /* Responsive Data Tables */
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+        background-color: #ffffff;
+        border: 1px solid #eef2f5;
+    }
+
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    .custom-table th {
+        background-color: #f8f9fa;
+        color: #495057;
+        font-weight: 600;
+        padding: 16px;
+        font-size: 0.95rem;
+        border-bottom: 2px solid #dee2e6;
+        white-space: nowrap;
+    }
+
+    .custom-table td {
+        padding: 16px;
+        vertical-align: middle;
+        border-bottom: 1px solid #ebebeb;
+        color: #4f5d75;
+        font-size: 0.95rem;
+    }
+
+    .custom-table tr:hover {
+        background-color: #fcfcfc;
+    }
+
+    /* Thumbnails alignment */
+    .report-thumb {
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid #dee2e6;
+        display: block;
+    }
+
+    /* Dynamic Badges matching system theme */
+    .status-badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .status-pending {
+        background-color: #fff3cd;
+        color: #856404;
+        border: 1px solid #ffeeba;
+    }
+
+    .status-verified {
+        background-color: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+    }
+
+    .status-cleaned {
+        background-color: #e2f0d9;
+        color: #385723;
+        border: 1px solid #c5e0b4;
+    }
+
+    /* Interactive Action Buttons */
+    .btn-action {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-action:hover {
+        background-color: #2980b9;
+    }
+
+    .btn-action:active {
+        transform: scale(0.98);
+    }
+
+    .no-data {
+        text-align: center;
+        color: #7f8c8d;
+        font-style: italic;
+        padding: 30px !important;
+    }
+</style>
+
+<div class="page-container">
+    <h1 class="page-title">Public Waste Reports</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert-success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th style="width: 80px;">Sl No</th>
+                    <th>Reported By</th>
+                    <th>Title</th>
+                    <th>Image</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for w in x %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><strong>{{ w.user_id.building_owner_name }}</strong></td>
+                    <td>{{ w.title }}</td>
+                    <td>
+                        <img src="/static/image/{{ w.image }}" width="60" height="60" class="report-thumb" alt="Report Proof">
+                    </td>
+                    <td>
+                        {% if w.status == 'pending' %}
+                            <span class="status-badge status-pending">Pending</span>
+                        {% elif w.status == 'verified' %}
+                            <span class="status-badge status-verified">Verified</span>
+                        {% elif w.status == 'cleaned' %}
+                            <span class="status-badge status-cleaned">Cleaned ✓</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if w.status == 'pending' %}
+                            <a href="/hks_verify_public_waste/{{ w.public_waste_id }}" class="btn-action">Verify</a>
+                        {% else %}
+                            <span class="status-badge status-cleaned">Verified ✓</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="no-data">No public waste reports found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% include 'public_footer.html' %}

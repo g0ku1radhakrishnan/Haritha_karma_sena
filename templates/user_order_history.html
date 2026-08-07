@@ -1,0 +1,139 @@
+{% include 'user_header.html' %}
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History | Haritha Karma Sena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        eco: {
+                            50: '#f2fcf5',
+                            100: '#e2f7e9',
+                            200: '#c5eed4',
+                            600: '#10b981',
+                            700: '#059669',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        accent: {
+                            gold: '#f59e0b',
+                            lime: '#84cc16'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen py-10">
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl space-y-8">
+        
+        <div class="border-b border-slate-200/60 pb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+                <h1 class="text-3xl font-black text-slate-900 tracking-tight">My Order History</h1>
+                <div class="h-1 w-12 bg-gradient-to-r from-eco-600 to-accent-lime rounded-full mt-2"></div>
+            </div>
+            
+            <a href="/user_view_recycle_product" class="inline-block self-start sm:self-center">
+                <button type="button" class="group bg-white hover:bg-slate-50 text-slate-700 font-semibold border border-slate-200 px-5 py-2.5 rounded-xl shadow-sm text-sm transition-all duration-300 flex items-center gap-2 hover:scale-[1.01]">
+                    <i class="fas fa-shopping-bag text-eco-600 group-hover:animate-pulse"></i> Continue Shopping
+                </button>
+            </a>
+        </div>
+
+        <div class="bg-white rounded-3xl border border-slate-100 shadow-xl shadow-slate-100/70 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[800px]">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-100 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                            <th class="py-4 px-6">Sl No</th>
+                            <th class="py-4 px-6">Order Date</th>
+                            <th class="py-4 px-6">Total Amount</th>
+                            <th class="py-4 px-6">Status</th>
+                            <th class="py-4 px-6">Items</th>
+                            <th class="py-4 px-6">Payment</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-sm text-slate-600 font-medium">
+                        {% for o in orders %}
+                        <tr class="hover:bg-slate-50/50 transition-colors duration-200">
+                            <td class="py-5 px-6 text-slate-400 text-xs">{{ forloop.counter }}</td>
+                            
+                            <td class="py-5 px-6 font-semibold text-slate-900">
+                                <span class="inline-flex items-center gap-1.5">
+                                    <i class="far fa-calendar text-slate-400 text-xs"></i> {{ o.date }}
+                                </span>
+                            </td>
+                            
+                            <td class="py-5 px-6 font-bold text-slate-900">₹{{ o.total_amount }}</td>
+                            
+                            <td class="py-5 px-6">
+                                {% if o.status == 'ordered' %}
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-sky-50 text-sky-700 border border-sky-100">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-sky-500 mr-2"></span>
+                                        Ordered
+                                    </span>
+                                {% elif o.status == 'delivered' %}
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-100">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-2"></span>
+                                        Delivered ✓
+                                    </span>
+                                {% endif %}
+                            </td>
+                            
+                            <td class="py-5 px-6 text-slate-700 font-medium leading-relaxed">
+                                {% for item in o.order_child_set.all %}
+                                    <div class="flex items-center gap-1">
+                                        <span class="text-slate-900 font-semibold">{{ item.product_id.product_name }}</span>
+                                        <span class="text-xs text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded font-bold">x{{ item.quantity }}</span>
+                                    </div>
+                                {% endfor %}
+                            </td>
+                            
+                            <td class="py-5 px-6 text-xs text-slate-500 leading-relaxed">
+                                {% for payment in o.od_payment_set.all %}
+                                    <div class="bg-slate-50 p-2 rounded-lg border border-slate-100 space-y-0.5 shadow-sm inline-block min-w-[150px]">
+                                        <div class="flex justify-between items-center font-bold text-slate-700">
+                                            <span>₹{{ payment.amount }}</span>
+                                            <span class="text-emerald-700 font-extrabold uppercase tracking-wide text-[9px] bg-emerald-50 border border-emerald-200 px-1.5 py-0.2 rounded">{{ payment.status }}</span>
+                                        </div>
+                                        <div class="text-[10px] text-slate-400 font-medium">{{ payment.date }}</div>
+                                    </div>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="py-12 px-6 text-center text-slate-400 font-medium italic">
+                                <div class="flex flex-col items-center justify-center space-y-2">
+                                    <i class="fas fa-receipt text-3xl text-slate-300 animate-pulse"></i>
+                                    <span>No orders found.</span>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
+
+{% include 'public_footer.html' %}

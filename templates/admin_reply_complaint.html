@@ -1,0 +1,117 @@
+{% include 'admin_header.html' %}
+
+<div class="container-fluid py-4">
+
+    <!-- Page Title -->
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="fw-bold text-white">
+                Reply to Complaint
+            </h2>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        Complaint Details
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-3">
+                            <strong>Sender</strong>
+                        </div>
+
+                        <div class="col-md-9">
+                            {{ complaint.sender_id.username }}
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-3">
+                            <strong>Description</strong>
+                        </div>
+
+                        <div class="col-md-9">
+                            {{ complaint.description }}
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="row mb-4">
+
+                        <div class="col-md-3">
+                            <strong>Date</strong>
+                        </div>
+
+                        <div class="col-md-9">
+                            {{ complaint.date }}
+                        </div>
+
+                    </div>
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Reply
+                            </label>
+
+                            <textarea
+                                name="reply"
+                                class="form-control"
+                                rows="5"
+                                placeholder="Type your reply here..."
+                                required>{{ complaint.reply }}</textarea>
+
+                        </div>
+
+                        <div class="d-flex gap-2">
+
+                            <button type="submit"
+                                    class="btn btn-success">
+
+                                Send Reply
+
+                            </button>
+
+                            <a href="/admin_view_complaints"
+                               class="btn btn-secondary">
+
+                                Cancel
+
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% include 'admin_footer.html' %}

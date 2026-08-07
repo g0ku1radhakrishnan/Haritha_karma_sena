@@ -1,0 +1,349 @@
+{% include 'itofficer_header.html' %}
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Products | Haritha Karma Sena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        eco: {
+                            50: '#f2fcf5',
+                            100: '#e2f7e9',
+                            200: '#c5eed4',
+                            600: '#10b981',
+                            700: '#059669',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        accent: {
+                            gold: '#f59e0b',
+                            lime: '#84cc16'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen py-10">
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl space-y-10">
+        
+        <div class="border-b border-slate-200/60 pb-4">
+            <h1 class="text-3xl font-black text-slate-900 tracking-tight">Manage Products</h1>
+            <div class="h-1 w-12 bg-gradient-to-r from-eco-600 to-accent-lime rounded-full mt-2"></div>
+        </div>
+
+        {% if messages %}
+            <div class="space-y-3">
+                {% for message in messages %}
+                    <div class="flex items-center p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 shadow-sm text-sm font-medium">
+                        <i class="fas fa-circle-check text-emerald-500 mr-3 text-base"></i>
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if update_data %}
+        <div class="bg-white p-6 sm:p-10 rounded-3xl border border-slate-100 shadow-xl shadow-slate-100/70 max-w-2xl mx-auto space-y-6 relative overflow-hidden">
+            <div class="absolute right-0 top-0 translate-x-4 -translate-y-4 opacity-5 text-8xl text-eco-600 pointer-events-none">
+                <i class="fas fa-pen-to-square"></i>
+            </div>
+
+            <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
+                <div class="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center text-amber-600 text-sm shadow-sm">
+                    <i class="fas fa-arrows-rotate"></i>
+                </div>
+                <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Update Product</h2>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data" class="space-y-5">
+                {% csrf_token %}
+                
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase text-slate-400 tracking-wide">Product Type</label>
+                        <div class="relative">
+                            <select name="product_type" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 pr-10 text-slate-800 font-medium focus:outline-none focus:border-eco-500 appearance-none text-sm transition-colors" required>
+                                <option value="bio" {% if update_data.product_type == 'bio' %}selected{% endif %}>Bio</option>
+                                <option value="plastic" {% if update_data.product_type == 'plastic' %}selected{% endif %}>Plastic</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400 text-xs">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase text-slate-400 tracking-wide">Product Name</label>
+                        <input type="text" name="product_name" value="{{ update_data.product_name }}" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-800 focus:outline-none focus:border-eco-500 text-sm transition-colors font-medium" required>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold uppercase text-slate-400 tracking-wide">Description</label>
+                    <textarea name="description" rows="3" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-slate-800 focus:outline-none focus:border-eco-500 text-sm transition-colors font-medium" required>{{ update_data.description }}</textarea>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase text-slate-400 tracking-wide">Stock</label>
+                        <input type="number" name="stock" value="{{ update_data.stock }}" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-800 focus:outline-none focus:border-eco-500 text-sm transition-colors font-medium" required>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase text-slate-400 tracking-wide">Amount (₹)</label>
+                        <input type="number" name="amount" value="{{ update_data.amount }}" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-800 focus:outline-none focus:border-eco-500 text-sm transition-colors font-medium" required>
+                    </div>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-6 bg-slate-50 border border-slate-100 p-4 rounded-2xl">
+                    <div class="space-y-2">
+                        <span class="block text-xs font-bold uppercase text-slate-400 tracking-wide">Current Image</span>
+                        <div class="w-20 h-20 rounded-xl bg-white border border-slate-200 overflow-hidden flex items-center justify-center p-1 shadow-sm">
+                            <img src="/static/image/{{update_data.image }}" class="w-full h-full object-cover rounded-lg">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 flex flex-col justify-center">
+                        <label class="block text-xs font-bold uppercase text-slate-400 tracking-wide">New Image</label>
+                        <input type="file" name="image" class="text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-eco-50 file:text-eco-700 hover:file:bg-eco-100 transition-all">
+                        <span class="text-[10px] text-slate-400 font-medium mt-1 block">(leave empty to keep current)</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center gap-3 pt-2">
+                    <button type="submit" class="w-full sm:w-auto bg-gradient-to-r from-eco-600 to-eco-700 hover:from-eco-700 hover:to-eco-800 text-white font-bold px-6 py-3 rounded-xl transition duration-300 uppercase tracking-widest text-xs shadow-lg shadow-eco-700/20 hover:scale-[1.01]">
+                        Update Product
+                    </button>
+                    <a href="/it_manage_products" class="block w-full sm:w-auto text-center bg-white hover:bg-slate-50 text-slate-700 font-semibold border border-slate-200 px-6 py-3 rounded-xl shadow-sm text-xs transition duration-200 uppercase tracking-widest">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        {% else %}
+        <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-xl shadow-slate-100/70 max-w-3xl mx-auto space-y-6 relative overflow-hidden">
+            <div class="absolute right-0 top-0 translate-x-4 -translate-y-4 opacity-5 text-7xl text-eco-600 pointer-events-none">
+                <i class="fas fa-plus-circle"></i>
+            </div>
+            
+            <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
+                <div class="w-8 h-8 bg-eco-50 rounded-lg flex items-center justify-center text-eco-600 text-sm shadow-sm">
+                    <i class="fas fa-square-plus"></i>
+                </div>
+                <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Add Product</h2>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data" class="space-y-5">
+                {% csrf_token %}
+                
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase text-slate-400 tracking-wide">Product Type</label>
+                        <div class="relative">
+                            <select name="product_type" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 pr-10 text-slate-800 font-medium focus:outline-none focus:border-eco-500 appearance-none text-sm transition-colors" required>
+                                <option value="">Select type</option>
+                                <option value="bio">Bio</option>
+                                <option value="plastic">Plastic</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400 text-xs">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase text-slate-400 tracking-wide">Product Name</label>
+                        <input type="text" name="product_name" placeholder="Enter product name" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-800 focus:outline-none focus:border-eco-500 text-sm transition-colors font-medium" required>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold uppercase text-slate-400 tracking-wide">Description</label>
+                    <textarea name="description" rows="3" placeholder="Enter description" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-slate-800 focus:outline-none focus:border-eco-500 text-sm transition-colors font-medium" required></textarea>
+                </div>
+
+                <div class="grid sm:grid-cols-3 gap-4">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase text-slate-400 tracking-wide">Stock</label>
+                        <input type="number" name="stock" placeholder="Enter stock" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-800 focus:outline-none focus:border-eco-500 text-sm transition-colors font-medium" required>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase text-slate-400 tracking-wide">Amount (₹)</label>
+                        <input type="number" name="amount" placeholder="Enter amount" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-slate-800 focus:outline-none focus:border-eco-500 text-sm transition-colors font-medium" required>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase text-slate-400 tracking-wide">Image File</label>
+                        <input type="file" name="image" class="w-full text-xs text-slate-500 border border-slate-200 bg-slate-50 rounded-xl p-2.5 file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-eco-600 file:text-white hover:file:bg-eco-700 transition-all" required>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full sm:w-auto bg-gradient-to-r from-eco-600 to-eco-700 hover:from-eco-700 hover:to-eco-800 text-white font-bold px-8 py-3.5 rounded-xl transition duration-300 uppercase tracking-widest text-xs shadow-lg shadow-eco-700/20 hover:scale-[1.01]">
+                        Add Product
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="space-y-4 pt-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-emerald-50 rounded-lg flex items-center justify-center text-eco-600 text-sm shadow-sm border border-emerald-100/50">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Bio Products</h2>
+            </div>
+
+            <div class="bg-white rounded-3xl border border-slate-100 shadow-xl shadow-slate-100/70 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[800px]">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-100 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                                <th class="py-4 px-6 w-16">Sl No</th>
+                                <th class="py-4 px-6 w-24">Image</th>
+                                <th class="py-4 px-6">Name</th>
+                                <th class="py-4 px-6">Description</th>
+                                <th class="py-4 px-6 w-24">Stock</th>
+                                <th class="py-4 px-6 w-28">Amount</th>
+                                <th class="py-4 px-6 text-center w-40">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-sm text-slate-600 font-medium">
+                            {% for p in bio_products %}
+                            <tr class="hover:bg-slate-50/40 transition-colors duration-200">
+                                <td class="py-4 px-6 text-slate-400 text-xs">{{ forloop.counter }}</td>
+                                <td class="py-4 px-6">
+                                    <div class="w-14 h-14 rounded-xl bg-slate-50 border border-slate-100 overflow-hidden flex items-center justify-center p-1 shadow-sm">
+                                        <img src="/static/image/{{p.image }}" class="w-full h-full object-cover rounded-lg">
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6 text-slate-900 font-semibold text-base">{{ p.product_name }}</td>
+                                <td class="py-4 px-6 text-slate-500 font-medium max-w-xs break-words leading-relaxed">{{ p.description }}</td>
+                                <td class="py-4 px-6">
+                                    <span class="inline-flex px-2 py-0.5 rounded-lg text-xs font-bold {% if p.stock > 0 %}bg-eco-50 text-eco-700 border border-eco-100{% else %}bg-red-50 text-red-700 border border-red-100{% endif %}">
+                                        {{ p.stock }}
+                                    </span>
+                                </td>
+                                <td class="py-4 px-6 text-slate-900 font-bold text-base">₹{{ p.amount }}</td>
+                                <td class="py-4 px-6 text-center space-x-2 whitespace-nowrap">
+                                    <a href="/it_update_product/{{ p.products_id }}" class="inline-block">
+                                        <button type="button" class="text-xs font-bold text-eco-600 hover:text-eco-800 bg-eco-50 hover:bg-eco-100 border border-eco-100 rounded-xl px-3.5 py-2 transition duration-200 uppercase tracking-wide">
+                                            Edit
+                                        </button>
+                                    </a>
+                                    <a href="/it_delete_product/{{ p.products_id }}" onclick="return confirm('Delete this product?')" class="inline-block">
+                                        <button type="button" class="text-xs font-bold text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 border border-red-100 rounded-xl px-3.5 py-2 transition duration-200 uppercase tracking-wide">
+                                            Delete
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="7" class="py-10 px-6 text-center text-slate-400 font-medium italic">
+                                    <div class="flex flex-col items-center justify-center space-y-2">
+                                        <i class="fas fa-box-open text-2xl text-slate-300"></i>
+                                        <span>No bio products found.</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-4 pt-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-sky-50 rounded-lg flex items-center justify-center text-sky-600 text-sm shadow-sm border border-sky-100/50">
+                    <i class="fas fa-cubes"></i>
+                </div>
+                <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Plastic Products</h2>
+            </div>
+
+            <div class="bg-white rounded-3xl border border-slate-100 shadow-xl shadow-slate-100/70 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[800px]">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-100 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                                <th class="py-4 px-6 w-16">Sl No</th>
+                                <th class="py-4 px-6 w-24">Image</th>
+                                <th class="py-4 px-6">Name</th>
+                                <th class="py-4 px-6">Description</th>
+                                <th class="py-4 px-6 w-24">Stock</th>
+                                <th class="py-4 px-6 w-28">Amount</th>
+                                <th class="py-4 px-6 text-center w-40">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-sm text-slate-600 font-medium">
+                            {% for p in plastic_products %}
+                            <tr class="hover:bg-slate-50/40 transition-colors duration-200">
+                                <td class="py-4 px-6 text-slate-400 text-xs">{{ forloop.counter }}</td>
+                                <td class="py-4 px-6">
+                                    <div class="w-14 h-14 rounded-xl bg-slate-50 border border-slate-100 overflow-hidden flex items-center justify-center p-1 shadow-sm">
+                                        <img src="/static/image/{{ p.image }}" class="w-full h-full object-cover rounded-lg">
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6 text-slate-900 font-semibold text-base">{{ p.product_name }}</td>
+                                <td class="py-4 px-6 text-slate-500 font-medium max-w-xs break-words leading-relaxed">{{ p.description }}</td>
+                                <td class="py-4 px-6">
+                                    <span class="inline-flex px-2 py-0.5 rounded-lg text-xs font-bold {% if p.stock > 0 %}bg-sky-50 text-sky-700 border border-sky-100{% else %}bg-red-50 text-red-700 border border-red-100{% endif %}">
+                                        {{ p.stock }}
+                                    </span>
+                                </td>
+                                <td class="py-4 px-6 text-slate-900 font-bold text-base">₹{{ p.amount }}</td>
+                                <td class="py-4 px-6 text-center space-x-2 whitespace-nowrap">
+                                    <a href="/it_update_product/{{ p.products_id }}" class="inline-block">
+                                        <button type="button" class="text-xs font-bold text-eco-600 hover:text-eco-800 bg-eco-50 hover:bg-eco-100 border border-eco-100 rounded-xl px-3.5 py-2 transition duration-200 uppercase tracking-wide">
+                                            Edit
+                                        </button>
+                                    </a>
+                                    <a href="/it_delete_product/{{ p.products_id }}" onclick="return confirm('Delete this product?')" class="inline-block">
+                                        <button type="button" class="text-xs font-bold text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 border border-red-100 rounded-xl px-3.5 py-2 transition duration-200 uppercase tracking-wide">
+                                            Delete
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="7" class="py-10 px-6 text-center text-slate-400 font-medium italic">
+                                    <div class="flex flex-col items-center justify-center space-y-2">
+                                        <i class="fas fa-box-open text-2xl text-slate-300"></i>
+                                        <span>No plastic products found.</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </main>
+
+{% include 'public_footer.html' %}
+</body>
+</html>

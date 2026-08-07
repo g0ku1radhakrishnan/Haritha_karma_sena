@@ -1,0 +1,165 @@
+{% include 'user_header.html' %}
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart | Haritha Karma Sena</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        eco: {
+                            50: '#f2fcf5',
+                            100: '#e2f7e9',
+                            200: '#c5eed4',
+                            600: '#10b981',
+                            700: '#059669',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        accent: {
+                            gold: '#f59e0b',
+                            lime: '#84cc16'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen py-10">
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl space-y-8">
+        
+        <div class="border-b border-slate-200/60 pb-4">
+            <h1 class="text-3xl font-black text-slate-900 tracking-tight">My Cart</h1>
+            <div class="h-1 w-12 bg-gradient-to-r from-eco-600 to-accent-lime rounded-full mt-2"></div>
+        </div>
+
+        {% if messages %}
+            <div class="space-y-3">
+                {% for message in messages %}
+                    <div class="flex items-center p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 shadow-sm text-sm font-medium">
+                        <i class="fas fa-circle-check text-emerald-500 mr-3 text-base"></i>
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if cart_items %}
+        <div class="bg-white rounded-3xl border border-slate-100 shadow-xl shadow-slate-100/70 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[750px]">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-100 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                            <th class="py-4 px-6 w-16">Sl No</th>
+                            <th class="py-4 px-6">Image</th>
+                            <th class="py-4 px-6">Product Name</th>
+                            <th class="py-4 px-6">Type</th>
+                            <th class="py-4 px-6 w-24">Quantity</th>
+                            <th class="py-4 px-6">Amount</th>
+                            <th class="py-4 px-6 text-center w-32">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-sm text-slate-600 font-medium">
+                        {% for item in cart_items %}
+                        <tr class="hover:bg-slate-50/40 transition-colors duration-200">
+                            <td class="py-4 px-6 text-slate-400 text-xs">{{ forloop.counter }}</td>
+                            
+                            <td class="py-4 px-6">
+                                <div class="w-16 h-16 rounded-xl bg-slate-50 border border-slate-100 overflow-hidden flex items-center justify-center p-1 shadow-sm">
+                                    <img src="/static/image/{{item.product_id.image }}" class="w-full h-full object-cover rounded-lg">
+                                </div>
+                            </td>
+                            
+                            <td class="py-4 px-6 text-slate-900 font-semibold text-base">
+                                {{ item.product_id.product_name }}
+                            </td>
+                            
+                            <td class="py-4 px-6">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-eco-50 text-eco-800 border border-eco-100">
+                                    {{ item.product_id.product_type }}
+                                </span>
+                            </td>
+                            
+                            <td class="py-4 px-6">
+                                <span class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg font-bold text-xs">
+                                    {{ item.quantity }}
+                                </span>
+                            </td>
+                            
+                            <td class="py-4 px-6 text-slate-900 font-bold text-base">
+                                ₹{{ item.amount }}
+                            </td>
+                            
+                            <td class="py-4 px-6 text-center">
+                                <a href="/remove_from_cart/{{ item.oc_id }}"
+                                   onclick="return confirm('Remove this item?')"
+                                   class="inline-block">
+                                    <button type="button" class="text-xs font-bold text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 border border-red-100 rounded-xl px-4 py-2 transition duration-200 uppercase tracking-wider">
+                                        Remove
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="bg-slate-900 p-6 sm:p-8 text-white flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-slate-800">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-slate-800 rounded-2xl flex items-center justify-center text-eco-500 text-xl shadow-inner">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold uppercase tracking-widest text-slate-400">Total Amount</p>
+                        <p class="text-2xl font-black bg-gradient-to-r from-white to-eco-200 bg-clip-text text-transparent mt-0.5">₹{{ order.total_amount }}</p>
+                    </div>
+                </div>
+                
+                <a href="/make_payment/{{ order.om_id }}" class="w-full sm:w-auto">
+                    <button type="button" class="w-full sm:w-auto bg-gradient-to-r from-eco-600 to-eco-700 hover:from-eco-700 hover:to-eco-800 text-white font-bold px-8 py-4 rounded-xl transition duration-300 uppercase tracking-widest text-xs shadow-lg shadow-eco-700/20 hover:scale-[1.01] flex items-center justify-center gap-2">
+                         Make Payment <i class="fas fa-credit-card text-sm"></i>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        {% else %}
+        <div class="bg-white rounded-3xl border border-slate-100 shadow-xl shadow-slate-100/70 p-12 text-center max-w-xl mx-auto space-y-6">
+            <div class="w-20 h-20 bg-red-50 text-red-400 flex items-center justify-center rounded-full mx-auto shadow-inner text-3xl">
+                <i class="fas fa-shopping-basket"></i>
+            </div>
+            <div class="space-y-2">
+                <p class="text-xl font-bold text-slate-900">Your cart is empty.</p>
+                <p class="text-sm text-slate-400 max-w-xs mx-auto">Explore our inventory of verified eco-friendly and recycled products to fill up your shopping suite.</p>
+            </div>
+            <div class="pt-2">
+                <a href="/user_view_recycle_product">
+                    <button type="button" class="bg-gradient-to-r from-eco-600 to-eco-700 hover:from-eco-700 hover:to-eco-800 text-white font-bold px-6 py-3 rounded-xl transition duration-300 uppercase tracking-widest text-xs shadow-md shadow-eco-700/15 flex items-center justify-center gap-2 mx-auto">
+                        <i class="fas fa-magnifying-glass"></i> Browse Products
+                    </button>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </main>
+
+</body>
+</html>
+
+{% include 'public_footer.html' %}

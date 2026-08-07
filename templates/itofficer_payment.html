@@ -1,0 +1,190 @@
+{% include 'itofficer_header.html' %}
+
+<style>
+    .page-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #333;
+    }
+    .page-title {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 24px;
+        border-bottom: 2px solid #ecf0f1;
+        padding-bottom: 10px;
+    }
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        border-radius: 8px;
+        background-color: #fff;
+        border: 1px solid #eef2f5;
+    }
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+    }
+    .custom-table th {
+        background-color: #f8f9fa;
+        color: #495057;
+        font-weight: 600;
+        padding: 16px;
+        border-bottom: 2px solid #dee2e6;
+    }
+    .custom-table td {
+        padding: 16px;
+        vertical-align: middle;
+        border-bottom: 1px solid #ebebeb;
+        color: #4f5d75;
+    }
+    .custom-table tr:hover { background-color: #fcfcfc; }
+    .status-badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+    .status-paid {
+        background-color: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+    }
+    .status-confirmed {
+        background-color: #e2f0d9;
+        color: #385723;
+        border: 1px solid #c5e0b4;
+    }
+    .status-pending {
+        background-color: #fff3cd;
+        color: #856404;
+        border: 1px solid #ffc107;
+    }
+    .amount-text { font-weight: 600; color: #2c3e50; }
+    .no-data {
+        text-align: center;
+        color: #7f8c8d;
+        font-style: italic;
+        padding: 30px !important;
+    }
+    .summary-box {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 24px;
+    }
+    .summary-card {
+        background: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        flex: 1;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        border: 1px solid #eef2f5;
+        text-align: center;
+    }
+    .summary-card h3 {
+        font-size: 1rem;
+        color: #7f8c8d;
+        margin-bottom: 8px;
+    }
+    .summary-card p {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #2c3e50;
+        margin: 0;
+    }
+</style>
+
+<div class="page-container">
+    <h1 class="page-title">Payment History</h1>
+
+    <!-- ======= SUMMARY CARDS ======= -->
+<div class="summary-box">
+    <div class="summary-card">
+        <h3>Total Payments</h3>
+        <p>{{ z.count }}</p>
+    </div>
+    <div class="summary-card">
+        <h3>Total Amount</h3>
+        <p>₹{{ total }}</p>         <!-- ✅ from view -->
+    </div>
+    <div class="summary-card">
+        <h3>Confirmed Payments</h3>
+        <p style="color:green;">{{ confirmed }}</p>  <!-- ✅ from view -->
+    </div>
+</div>
+
+    <!-- ======= PAYMENT TABLE ======= -->
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Sl No</th>
+                    <th>User</th>
+                    <th>Phone</th>
+                    <th>Place</th>
+                    <th>Order Date</th>
+                    <th>Payment Date</th>
+                    <th>Amount</th>
+                    <th>Order Status</th>
+                    <th>Payment Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in z %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        <strong>
+                            {{ p.om_id.user_id.building_owner_name }}
+                        </strong>
+                    </td>
+                    <td>{{ p.om_id.user_id.phone }}</td>
+                    <td>{{ p.om_id.user_id.place }}</td>
+                    <td>{{ p.om_id.date }}</td>
+                    <td>{{ p.date }}</td>
+                    <td class="amount-text">₹{{ p.amount }}</td>
+                    <td>
+                        {% if p.om_id.status == 'ordered' %}
+                            <span class="status-badge status-paid">
+                                Ordered
+                            </span>
+                        {% elif p.om_id.status == 'delivered' %}
+                            <span class="status-badge status-confirmed">
+                                Delivered ✓
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if p.status == 'pending' %}
+                            <span class="status-badge status-pending">
+                                Pending
+                            </span>
+                        {% elif p.status == 'paid' %}
+                            <span class="status-badge status-paid">
+                                Paid
+                            </span>
+                        {% elif p.status == 'confirmed' %}
+                            <span class="status-badge status-confirmed">
+                                Confirmed ✓
+                            </span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9" class="no-data">
+                        No payment history found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% include 'public_footer.html' %}
