@@ -1,0 +1,1 @@
+web: gunicorn haritha_karma_sena.wsgi
